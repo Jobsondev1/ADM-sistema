@@ -1,12 +1,12 @@
 import React from 'react'
 import "./menuSidebar.css"
-
+import { BrowserRouter, Switch, Route,} from "react-router-dom";
 const MenuSidebar = () => {
     return (
         <div className="sidebar__menu">
             <div className="sidebar__link active__menu__link">
                 <i className="fa fa-home"></i>
-                <a href="Main">Inicio</a>
+                <a href={"/"}>Main</a>
             </div>
             <div className="sidebar__link">
                 <i className="fa fa-cutlery"></i>
@@ -18,7 +18,7 @@ const MenuSidebar = () => {
             </div>
             <div className="sidebar__link">
                 <i className="fa fa-box-open"></i>
-                <a href="Produtos">Produtos</a>
+                <a href={"/Produto"}>Produto</a>
             </div>
            
             <div className="sidebar__link">

@@ -28,7 +28,6 @@ border-radius: 10px;
 }
 
 body {
-background: #dee2e4;
 box-sizing: border-box;
 font-family: 'Lato', sans-serif;
 }
@@ -69,7 +68,8 @@ color: #469cac;
   grid-template-rows: 0.2fr 3fr;
   grid-template-areas: 
   "sidebar nav nav nav" 
-  "sidebar main main main";
+  "sidebar main main main"
+  /*"sidebar produto produto produto";*/
 }
 
 @media only screen and (max-width: 978px){
@@ -78,6 +78,7 @@ color: #469cac;
     grid-template-rows: 0.2fr 3fr;
     grid-template-areas: 
     "nav" 
-    "main";
+    "main"
+    /*"produto";*/
   }
 }

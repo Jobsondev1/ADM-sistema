@@ -1,7 +1,8 @@
 import "./main.css";
 import logo from "../../assets/logo.png"
-
-import Charts from "../../components/charts/Charts";
+//import Charts from "../../components/charts/Charts";
+import RadialCharts from "../../components/rechart/RadialCharts";
+import {UserData} from "../../services/UserData";
 
 const Main = () => {
     return (
@@ -54,12 +55,13 @@ const Main = () => {
                 <div className="charts__left">
                     <div className="charts__left__title">
                         <div>
-                            <h1>Relatorio diario</h1>
+                            <h1>Relatorio do Mez</h1>
                             <p>Produção do dia</p>
                         </div>
                         <i className="fa fa-usd"></i>
                     </div>
-                   <Charts /> 
+                    <RadialCharts/>
+                 {/*<Charts /> */}  
                 </div>
 
                 <div className="charts__right">

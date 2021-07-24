@@ -1,0 +1,20 @@
+.card2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 70px;
+    padding: 25px;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+}
+
+.card_inner2{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card_inner2 > span{
+    font-size: 25px;
+}
