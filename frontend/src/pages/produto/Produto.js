@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./produto.css"
 import { DataGrid } from '@material-ui/data-grid';
 import Search from '../../components/search/Search';
+import Modal from '../../components/modal/Modal';
 
 const Produto = () => {
     const columns = [
@@ -31,15 +32,26 @@ const Produto = () => {
         { id: 5, nome: 'Goiabada', tipo: 'Pequeno', age: null },
         { id: 6, nome: 'Goiabada coco', tipo: null, age: 150 },
       ];
+
+      const [isModalVisible, setIsModalVisible] = useState(false);
+
     return (
     <produto>
     <div className="produto__container">
-    <button className=" card_button_novo">
+
+    <button onClick={()=> setIsModalVisible(true)} className=" card_button_novo">
          <a className="card_icon" href="#"><i className=" fa fa-plus"></i> </a> Novo Produto 
-     </button>
+    </button>
+
+    {isModalVisible ?
+     <Modal>
+      <h2>Ola modal</h2>
+      </Modal> : null
+      }
+
     <div className="card__tabela">
 
-     <Search />heckboxSelection
+     <Search />
 
     <div className="tabela" style={{ height: 400, width: '100%', marginTop:10 }}>
          <DataGrid rows={rows} columns={columns} pageSize={5} c />

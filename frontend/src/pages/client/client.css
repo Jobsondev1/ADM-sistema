@@ -1,0 +1,39 @@
+client{
+    background: #e8e9eb;
+    grid-area: main;
+    overflow-y: auto;
+}
+.client__container{
+    padding: 20px 35px;
+}
+
+.card_button_novo{
+    margin-left: 700px;
+    box-shadow: 0px 10px 14px -7px #276873;
+	background-color:#599bb3;
+    border: none;
+    border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:10px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+}
+
+.card_button_novo:hover{
+    background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99; 
+}
+
+.card_button_novo:active{
+    position:relative;
+	top:1px;
+}
+.card_icon > i{
+    font-size: 26px;
+    color: #ffffff;
+}

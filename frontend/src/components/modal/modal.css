@@ -1,0 +1,35 @@
+.modal{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: rgba(200, 200, 200);  
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__container{
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color: #000;
+    width: 60%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+.modal__close{
+    display: flex;
+  justify-content: flex-end;
+}
+.modal__close  Button{
+    background: transparent;
+   border:none;
+    outline: none;
+    width: 32px;
+    height: 32px;
+    font-size: 25px;
+}
