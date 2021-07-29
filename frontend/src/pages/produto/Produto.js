@@ -39,20 +39,47 @@ const Produto = () => {
     <produto>
     <div className="produto__container">
 
+       <div className="btn_novo">
     <button onClick={()=> setIsModalVisible(true)} className=" card_button_novo">
          <a className="card_icon" href="#"><i className=" fa fa-plus"></i> </a> Novo Produto 
     </button>
+    </div>
 
     {isModalVisible ?
-     <Modal>
-      <h2>Ola modal</h2>
+     <Modal onClose={()=> setIsModalVisible(false)}>
+      <div className="title_form_modal">
+        <h1>Cadastro do Produto </h1>
+      </div>
+
+  <div className="form__modal">
+    <form method="post" >
+          <div className="form">
+          <label for="nome">Produto:</label>
+            <input type="text" id="nomeProduto" name="nomeProduto" placeholder="Digite o produto*" required/>
+          </div>
+          
+          <div className="form">
+            <label for="size">Tamanho:</label>
+              <select id="size">
+                <option value="pequeno">Pequeno</option>
+                <option value="grande">Grande</option>
+              </select>
+          </div>
+
+          <div class="form">
+              <label for="mensagem">Detalhes:</label>
+              <textarea rows="3" name="mensagem" id="mensagem" placeholder="Detalhe do produto*" required></textarea>
+          </div>
+          <button type="submit">Salvar</button>
+    </form>
+  </div>
       </Modal> : null
       }
 
     <div className="card__tabela">
 
      <Search />
-
+  
     <div className="tabela" style={{ height: 400, width: '100%', marginTop:10 }}>
          <DataGrid rows={rows} columns={columns} pageSize={5} c />
     </div>

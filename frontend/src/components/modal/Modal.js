@@ -1,11 +1,16 @@
+import { DialogTitle } from '@material-ui/core';
 import React from 'react'
 import "./modal.css"
-const Modal = ({ children }) => {
+const Modal = ({ id='modal', onClose= ()=>{}, children }) => {
+
+    const handleOutsiderClick = (e) =>{
+    if(e.target.id === id) onClose();
+}
     return (
-        <div className="modal">
+        <div id={id} className="modal" onClick={handleOutsiderClick}>
             <div className="modal__container">
                 <div className="modal__close">
-                    <button >X</button>
+                    <button onClick={onClose} >X</button>
                 </div>
                 
                 <div className="modal__content">{children}</div>       

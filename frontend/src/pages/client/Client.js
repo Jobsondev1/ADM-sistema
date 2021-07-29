@@ -16,7 +16,7 @@ const Client = () => {
     </button>
 
     {isModalVisible ?
-     <Modal>
+     <Modal onClose={()=> setIsModalVisible(false)}>
       <h2>Ola modal</h2>
       <button>Salvar</button>
       </Modal> : null
