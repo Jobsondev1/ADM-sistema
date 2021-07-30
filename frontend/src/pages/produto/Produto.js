@@ -47,32 +47,35 @@ const Produto = () => {
 
     {isModalVisible ?
      <Modal onClose={()=> setIsModalVisible(false)}>
+     
+    
       <div className="title_form_modal">
         <h1>Cadastro do Produto </h1>
-      </div>
-
-  <div className="form__modal">
+      </div> 
+    <div className="modal__form">
     <form method="post" >
-          <div className="form">
-          <label for="nome">Produto:</label>
+          <div className="form__grup">
+          <label htmlFor="nomeProduto">Produto:</label>
             <input type="text" id="nomeProduto" name="nomeProduto" placeholder="Digite o produto*" required/>
           </div>
-          
-          <div className="form">
-            <label for="size">Tamanho:</label>
+             
+          <div className="form__grup">
+            <label htmlFor="size">Tamanho:</label>
               <select id="size">
                 <option value="pequeno">Pequeno</option>
                 <option value="grande">Grande</option>
               </select>
           </div>
 
-          <div class="form">
-              <label for="mensagem">Detalhes:</label>
+          <div className="form__grup">
+              <label htmlFor="mensagem">Detalhes:</label>
               <textarea rows="3" name="mensagem" id="mensagem" placeholder="Detalhe do produto*" required></textarea>
           </div>
+          <div className="form__button__salvar">
           <button type="submit">Salvar</button>
+          </div>
     </form>
-  </div>
+    </div>
       </Modal> : null
       }
 

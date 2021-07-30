@@ -1,6 +1,6 @@
 import React from 'react'
 import "./menuSidebar.css"
-import { BrowserRouter, Switch, Route,} from "react-router-dom";
+//import { BrowserRouter, Switch, Route,} from "react-router-dom";
 const MenuSidebar = () => {
     return (
         <div className="sidebar__menu">
