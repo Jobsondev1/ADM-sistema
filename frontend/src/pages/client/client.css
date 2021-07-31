@@ -1,4 +1,4 @@
-client{
+main{
     background: #e8e9eb;
     grid-area: main;
     overflow-y: auto;
@@ -36,4 +36,66 @@ client{
 .card_icon > i{
     font-size: 26px;
     color: #ffffff;
+}
+
+.title_form_modal{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.modal__form{
+    justify-content: center;
+    width: 50%;
+    height: 50%;    
+}
+
+form{
+    width: 100%;
+    margin: 15px 0;    
+}
+
+.form__grup{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form__grup > label{
+    margin-bottom: 5px ;
+    font-size: 15px;
+    color: #555;
+}
+
+input[type=text]{
+    width: 100%;
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    border: 1px solid #AAA;
+    outline: none;
+    font-size: 15px;
+}
+textarea{
+    height: 190px;
+    resize: none;
+
+    padding-top: 10px;
+}
+
+
+.form__button__salvar >button{
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.form__button__salvar >button:hover{
+    background: #127194;
 }

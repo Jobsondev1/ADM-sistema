@@ -4,7 +4,9 @@ import { DataGrid } from '@material-ui/data-grid';
 import Search from '../../components/search/Search';
 import Modal from '../../components/modal/Modal';
 
-import api from '../../services/api'
+import { useForm } from 'react-hook-form'
+
+//import api from '../../services/api'
 
 const Produto = () => {
   //TABELA
@@ -39,26 +41,10 @@ const Produto = () => {
       const [isModalVisible, setIsModalVisible] = useState(false);
 
       //DADOS PARA API
-      const [ nomeProduct, setNomeProduct] = useState('');
-      const [ sizeProduct, setSizeProduct] = useState('');
-      const [ detalheProduto, setDetalheProduto] = useState('');
 
-async function handleSubmit(){
-  const data = {
-    productName: nomeProduct, 
-    productSize: sizeProduct,
-    productDescription: detalheProduto
-  }
-  console.log(data)
-  {/*
-    const response = await api.post('/api/produto', data);
+    const { register, handleSubmit, formState: { errors } } = useForm()
 
-    if(response.status === 200){
-      window.location.href= 'produtos'
-    }else{
-      alert('erro ao cadastro produto')
-    }*/}
-}
+    const addProduct = data => console.log(data)
 
     return (
     <main>
@@ -78,20 +64,17 @@ async function handleSubmit(){
         <h1>Cadastro do Produto </h1>
       </div> 
     <div className="modal__form">
-    <form >
+
+    <form onSubmit={handleSubmit(addProduct)} >
+
           <div className="form__grup">
-          <label htmlFor="nomeProduto">Produto:</label>
-            <input type="text" id="nomeProduto" name="nomeProduto" placeholder="Digite o produto*" required 
-            value={nomeProduct}
-            onChange ={ev => setNomeProduct(ev.target.value)}/>
+           <label htmlFor="nomeProduto">Produto*</label>
+            <input type="text" id="nomeProduto" name="nomeProduto" required {...register("nomeProduto")}/>
           </div>
              
           <div className="form__grup">
-            <label htmlFor="size">Tamanho:</label>
-              <select id="size"
-              value={sizeProduct}
-              onChange ={ev => setSizeProduct(ev.target.value)}
-              >
+            <label htmlFor="sizeProduto">Tamanho*:</label>
+              <select id="sizeProduto" {...register("sizeProduto")}>
                 <option value={1}>Pequeno</option>
                 <option value={2}>Grande</option>
               </select>
@@ -99,13 +82,10 @@ async function handleSubmit(){
 
           <div className="form__grup">
               <label htmlFor="detalheProduto">Detalhes:</label>
-              <textarea rows="3" name="detalheProduto" id="detalheProduto" placeholder="Detalhe do produto*"
-               value={detalheProduto}
-               onChange ={ev => setDetalheProduto(ev.target.value)}
-              />
+              <textarea rows="3" name="detalheProduto" id="detalheProduto" {...register("detalhePrduto")}/>
           </div>
           <div className="form__button__salvar">
-          <button type="submit" onClick={handleSubmit}>Salvar</button>
+          <button type="submit">Salvar</button>
           </div>
     </form>
     </div>
