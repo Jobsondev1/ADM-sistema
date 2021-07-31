@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     z-index: 10;
-    background: rgba(200, 200, 200);  
+    background-color: rgba(0, 0, 0, .4);  
     display: flex; 
     justify-content: center;
     align-items: center;

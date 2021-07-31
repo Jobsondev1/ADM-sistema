@@ -2,7 +2,7 @@ import "./main.css";
 import logo from "../../assets/logo.png"
 //import Charts from "../../components/charts/Charts";
 import RadialCharts from "../../components/rechart/RadialCharts";
-import {UserData} from "../../services/UserData";
+//import {UseData} from "../../services/UseData";
 
 const Main = () => {
     return (

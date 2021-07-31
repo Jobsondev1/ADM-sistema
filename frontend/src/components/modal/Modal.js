@@ -1,4 +1,4 @@
-import { DialogTitle } from '@material-ui/core';
+//import { DialogTitle } from '@material-ui/core';
 import React from 'react'
 import "./modal.css"
 const Modal = ({ id='modal', onClose= ()=>{}, children }) => {

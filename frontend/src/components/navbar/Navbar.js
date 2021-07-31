@@ -10,19 +10,19 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
            </div>
            
            <div className ="navbar__left">
-            <a href="#">Produtos</a>
-            <a href="#">Usuarios</a>
-            <a className="active_link" href="#">Produtos</a>
+            <a href="/">Inicio</a>
+            <a href="/User">Usuarios</a>
+            <a className="active_link" href="/Produto">Produtos</a>
            </div>
 
         <div className="navbar__right">
-            <a href="#">
+         {/*   <a href="#">
                 <i className=" fa fa-search"></i>
             </a>
             <a href="#">
                 <i className=" fa fa-clock"></i>
-            </a>
-            <a href="#">
+    </a>*/}
+            <a href="/User">
                 <img width="30" src={avatar} alt="avatar"/>
             </a>
         </div>
