@@ -55,8 +55,7 @@ produto{
 }
 .title_form_modal{
     display: flex;
-    justify-content: center;
-    
+    justify-content: center;  
 }
 
 .modal__form{
@@ -115,4 +114,35 @@ input[type=text], textarea{
 }
 .form__button__salvar >button:hover{
     background: #127194;
+}
+
+.btn_table_edit{
+    margin-right: 10px;
+}
+.btn_edit{
+    border: none;
+    background-color: #fff;
+    padding: 5px 10px;
+    font-size: 25px;
+    color: #17d336;
+    cursor: pointer;
+}
+.btn_edit:hover{
+    color: #0c7c1f ;
+}
+
+.btn_table_delete{
+    margin-right: 10px;
+}
+.btn_delete{
+    border: none;
+
+    background-color: #fff;
+    padding: 5px 10px;
+    font-size: 25px;
+    color: #f03242;
+    cursor: pointer;
+}
+.btn_delete:hover{
+    color: #b91624 ;
 }

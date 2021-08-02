@@ -7,6 +7,12 @@ main{
     padding: 20px 35px;
 }
 
+.btn_novo{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+}
+
 .card_button_novo{
     margin-left: 700px;
     box-shadow: 0px 10px 14px -7px #276873;

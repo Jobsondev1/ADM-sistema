@@ -1,42 +1,26 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import "./produto.css"
-import { DataGrid } from '@material-ui/data-grid';
+//import { DataGrid } from '@material-ui/data-grid';
+import MaterialTable from 'material-table';
 import Search from '../../components/search/Search';
 import Modal from '../../components/modal/Modal';
 
 import { useForm } from 'react-hook-form'
 
-//import api from '../../services/api'
+import api from '../../services/api'
+
+const pro = [
+  { id: 1, productName: 'Mandioca', productSize: 'Pequeno', productDescription: 'Bolo de Mandioca', opcoes: 'botão'},
+  { id: 2, productName: 'macaxeira', productSize: 'Pequeno', productDescription: 'bolo de macaxeira', opcoes: 'botão' },
+  { id: 3, productName: 'tradicional', productSize: 'Grande', productDescription: 'Bolo trigo',  opcoes: 'botão' },
+  { id: 4, productName: 'Formigueiro', productSize: 'Grande', productDescription: 'bolo ganulado',  opcoes: 'botão' },
+  { id: 5, productName: 'Goiabada', productSize: 'Pequeno', productDescription: 'trigo e goiabada',  opcoes: 'botão' },
+  { id: 6, productName: 'Goiabada coco', productSize: 'Pequeno', productDescription: 'trigo goiabada e coco',  opcoes: 'botão'},
+];
+
 
 const Produto = () => {
-  //TABELA
-    const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'nome', headerName: 'name produto', width: 130 },
-        { field: 'tipo', headerName: 'tipo', width: 130 },
-        {
-          field: 'age',
-          headerName: 'Age',
-          type: 'number',
-          width: 90,
-        },
-        {
-          field: 'fullName',
-          headerName: 'Full name',
-          description: 'This column has a value getter and is not sortable.',
-          sortable: false,
-          width: 160,
-        },
-      ];
-      
-      const rows = [
-        { id: 1, nome: 'Mandioca', tipo: 'pequeno', age: 35 },
-        { id: 2, nome: 'macaxeira', tipo: 'pequeno', age: 42 },
-        { id: 3, nome: 'tradicional', tipo: 'Grande', age: 45 },
-        { id: 4, nome: 'Formigueiro', tipo: 'Grande', age: 16 },
-        { id: 5, nome: 'Goiabada', tipo: 'Pequeno', age: null },
-        { id: 6, nome: 'Goiabada coco', tipo: null, age: 150 },
-      ];
+
       //MODAL
       const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -46,11 +30,73 @@ const Produto = () => {
 
     const addProduct = data => console.log(data)
 
+      //LISTAR DADOS API PRODUTO
+  
+      const [data, setData] = useState([])
+     useEffect(() =>{
+        async function loadProdutos(){
+          const response = await api.get("/api/product");
+          console.log(response.data)
+          setData(response.data)
+        }
+        loadProdutos();
+      }, [])
+
+        //TABELA
+  const columns = [
+    /*{ 
+    field: '_id', 
+    headerName: 'ID', 
+    width: 100 
+     },*/
+    {
+      field: 'productName',
+      title: 'Produto',
+      width: 300,
+      editable: true,
+    },
+    {
+      field: 'productDescription',
+      title: 'descrição',
+      width: 400,
+      editable: true,
+    },
+    {
+      field: 'productSize',
+      title: 'tamanho',
+      width: 150,
+      editable: true,
+    },
+  /*  {
+      field: 'opcoes',
+      title: 'Opções',
+      width: 160,
+      renderCell: (params)=>{
+        return (
+          <>
+          <div className="btn_table_edit">
+          <button className=" btn_edit">
+         <a><i className=" fas fa-pencil-alt"></i> </a> 
+          </button>
+          </div>
+
+          <div className="btn_table_delete">
+          <button className=" btn_delete">
+         <a><i className=" fas fa-trash-alt"></i></a> 
+          </button>
+          </div>
+          </>
+        )
+      }
+    },*/
+  ];
+      
     return (
     <main>
+      <div className="__container">
     <div className="produto__container">
 
-       <div className="btn_novo">
+    <div className="btn_novo">
     <button onClick={()=> setIsModalVisible(true)} className=" card_button_novo">
          <a className="card_icon"><i className=" fa fa-plus"></i> </a> Novo Produto 
     </button>
@@ -70,6 +116,7 @@ const Produto = () => {
           <div className="form__grup">
            <label htmlFor="nomeProduto">Produto*</label>
             <input type="text" id="nomeProduto" name="nomeProduto" required {...register("nomeProduto")}/>
+            <p className="error-message">{errors.title?.message}</p>
           </div>
              
           <div className="form__grup">
@@ -78,11 +125,13 @@ const Produto = () => {
                 <option value={1}>Pequeno</option>
                 <option value={2}>Grande</option>
               </select>
+              <p className="error-message">{errors.title?.message}</p>
           </div>
 
           <div className="form__grup">
               <label htmlFor="detalheProduto">Detalhes:</label>
               <textarea rows="3" name="detalheProduto" id="detalheProduto" {...register("detalhePrduto")}/>
+              <p className="error-message">{errors.title?.message}</p>
           </div>
           <div className="form__button__salvar">
           <button type="submit">Salvar</button>
@@ -93,17 +142,39 @@ const Produto = () => {
       }
 
     <div className="card__tabela">
-
-     <Search />
   
-    <div className="tabela" style={{ height: 400, width: '100%', marginTop:10 }}>
-         <DataGrid rows={rows} columns={columns} pageSize={5} c />
+     <div>
+      <MaterialTable
+        data={data}
+        columns={columns}
+        title="Produtos"
+        actions={[
+          {
+            icon:"edit",
+            tooltip: "editar Produto",
+            onClick: (event, rowData)=> window.confirm("deseja editar o produto:" +rowData.productName)
+          },
+          {
+            icon:"delete",
+            tooltip: "Deletar Produto",
+            onClick: (event, rowData)=> window.confirm("deseja Deleatar o produto:" +rowData.productName+"?")
+          }
+        ]}
+        options={{
+          actionsColumnIndex: -1
+        }}
+        localization={{
+          header:{
+            actions:"Opçoes"
+          }
+        }}
+      />
     </div>
   
      </div>  
   
    </div>
-   
+   </div>
     </main>
     )
 }
