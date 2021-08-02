@@ -6,8 +6,8 @@ const ProductSchema = new mongoose.Schema({
         required: true,
     },
     productSize:{
-        type: Number,
-        default:1
+        type: String,
+        required: true,
     },
     productDescription: {
         type: String,

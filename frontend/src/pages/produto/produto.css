@@ -44,15 +44,6 @@ produto{
     color: #ffffff;
 }
 
-.card__tabela{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 25px;
-    border-radius: 5px;
-    background: #ffffff;
-    box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
-}
 .title_form_modal{
     display: flex;
     justify-content: center;  
