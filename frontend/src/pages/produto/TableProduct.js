@@ -60,12 +60,12 @@ const TableProduct = () => {
      useEffect(() =>{
         async function loadProdutos(){
           const response = await api.get("/api/product");
-          console.log(response.data)
           setData(response.data)
         }
         loadProdutos();
       }, [])
-
+   //EDITAR PRODUTO
+   
 
   return (
     <div>

@@ -1,16 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import MaterialTable from 'material-table';
 import api from '../../services/api'
+import { useForm } from 'react-hook-form'
 
 
 const TableUser = () => {
 
   const columns = [
-    /*{ 
-    field: '_id', 
-    headerName: 'ID', 
-    width: 100 
-     },*/
+
     {
       field: 'name_user',
       title: 'Nome',
@@ -23,72 +20,53 @@ const TableUser = () => {
       width: 150,
       editable: true,
     },
-  /*  {
-      field: 'opcoes',
-      title: 'Opções',
-      width: 160,
-      renderCell: (params)=>{
-        return (
-          <>
-          <div className="btn_table_edit">
-          <button className=" btn_edit">
-         <a><i className=" fas fa-pencil-alt"></i> </a> 
-          </button>
-          </div>
-
-          <div className="btn_table_delete">
-          <button className=" btn_delete">
-         <a><i className=" fas fa-trash-alt"></i></a> 
-          </button>
-          </div>
-          </>
-        )
-      }
-    },*/
   ];
 
+  //LISTAR DADOS API PRODUTO
 
-      //LISTAR DADOS API PRODUTO
-  
-      const [data, setData] = useState([])
-     useEffect(() =>{
-        async function loadProdutos(){
-          const response = await api.get("/api/user");
-          console.log(response.data)
-          setData(response.data)
-        }
-        loadProdutos();
-      }, [])
+  const [data, setData] = useState([])
+  useEffect(() => {
+    async function loadProdutos() {
+      const response = await api.get("/api/user");
+      setData(response.data)
+    }
+    loadProdutos();
+  }, [])
 
+  //CRIAR PRODUTO
+  const getUser = () => {
+    fetch(api).then(resp => resp.json())
+      .then(resp => setData(resp))
+  }
 
   return (
     <div>
-    <MaterialTable 
-      data={data}
-      columns={columns}
-      title="Produtos"
-      actions={[
-        {
-          icon:"edit",
-          tooltip: "editar Produto",
-          onClick: (event, rowData)=> window.confirm("deseja editar o produto:" +rowData.productName)
-        },
-        {
-          icon:"delete",
-          tooltip: "Deletar Produto",
-          onClick: (event, rowData)=> window.confirm("deseja Deleatar o produto:" +rowData.productName+"?")
-        }
-      ]}
-      options={{
-        actionsColumnIndex: -1
-      }}
-      localization={{
-        header:{
-          actions:"Opçoes"
-        }
-      }}
-    />
-  </div>
+      <MaterialTable
+        title="Produtos"
+        columns={columns}
+        data={data}
+         actions={[        
+          {
+            icon: "edit",
+            tooltip: "editar Produto",
+            onClick: (event, rowData) => window.confirm("deseja editar o produto:" + rowData.productName)
+          },
+          {
+            icon: "delete",
+            tooltip: "Deletar Produto",
+            onClick: (event, rowData) => window.confirm("deseja Deleatar o produto:" + rowData.productName + "?")
+          }
+        ]}
+        options={{
+          addRowPosition:"first",
+          actionsColumnIndex: -1,
+          search: false,
+          exportButton: true,
+          sorting: false,       
+
+        }}
+      />
+    </div>
   )
 }
 

@@ -7,7 +7,7 @@ const Modal = ({ id='modal', onClose= ()=>{}, children }) => {
     if(e.target.id === id) onClose();
 }
     return (
-        <div id={id} className="modal" onClick={handleOutsiderClick}>
+        <div id={id} className="modal_primary" onClick={handleOutsiderClick}>
             <div className="modal__container">
                 <div className="modal__close">
                     <button onClick={onClose} >X</button>

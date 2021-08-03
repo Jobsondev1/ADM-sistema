@@ -1,0 +1,97 @@
+main{
+    grid-area: main;
+    overflow-y: auto;
+}
+
+.produto__container{
+    padding: 20px 35px;
+
+}
+    form{
+        width: 100%;
+        margin: 15px 0;    
+    }
+    
+    .form__grup{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+    
+    .form__grup > label{
+        margin-bottom: 5px ;
+        font-size: 15px;
+        color: #555;
+    }
+    
+    input[type=text], textarea{
+        width: 100%;
+        padding-left: 10px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 15px;
+        border: 1px solid #AAA;
+        outline: none;
+        font-size: 15px;
+    }
+
+    input[type=email], textarea{
+        width: 100%;
+        padding-left: 10px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 15px;
+        border: 1px solid #AAA;
+        outline: none;
+        font-size: 15px;
+    }
+
+    input[type=password], textarea{
+        width: 100%;
+        padding-left: 10px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 15px;
+        border: 1px solid #AAA;
+        outline: none;
+        font-size: 15px;
+    }
+    .form__grup > select{
+        width: 150px;
+        padding-left: 10px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 15px;
+        border: 1px solid rgb(223, 218, 218);
+        outline: none;
+        font-size: 20px;
+    }
+
+
+ button{
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.button_modal{
+    background-color: cornflowerblue;
+}
+
+.button_salvar:hover{
+    background: #127194;
+}
+
+.button_exit{
+    background-color: #dd5c5c;
+}
+
+.button_exit:hover{
+    background: #d63d3d;
+}
