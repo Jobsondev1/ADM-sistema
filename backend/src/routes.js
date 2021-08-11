@@ -1,14 +1,18 @@
 const express = require('express');
 const UsuerControllers = require('./controllers/UsuerControllers');
 const ProductController = require('./controllers/ProductController');
-const ClientController = require ('./controllers/ClientController')
+const ClientController = require ('./controllers/ClientController');
+const UserController = require('./controllers/UsuerControllers');
 
 const routes = express.Router();
 
 //USUARIO
 routes.post('/api/user', UsuerControllers.createUser);
+routes.patch('/api/user/:user_id', UsuerControllers.updateUser);
 routes.get('/api/user', UsuerControllers.getUsers);
 routes.get('/api/user/:user_id', UsuerControllers.getUserByid);
+routes.delete('/api/user/:user_id', UserController.deleteUser);
+
 
 //PRODUTO
 routes.post('/api/product', ProductController.createProduct);

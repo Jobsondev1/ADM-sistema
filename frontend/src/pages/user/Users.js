@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import "./user.css"
 import MaterialTable from 'material-table';
 import api from '../../services/api'
-import { Modal, TextField, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
+import { Modal} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useForm } from 'react-hook-form'
-import { useHistory } from "react-router-dom"
+//import { useForm } from 'react-hook-form'
+//import { useHistory } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -39,83 +39,193 @@ const columns = [
     {
         field: 'email_user',
         title: 'Email',
+        width: 300,
+        editable: true,
+    },
+    {
+        field: 'type_user',
+        title: 'Tipo',
         width: 150,
         editable: true,
     },
 ];
 const Users = () => {
     const styles = useStyles();
-
-
-    //MODAL
-    const [isModalAbrir, setIsModalAbrir] = useState(false);
-
-    //ABRIR MODAL E RFECHAR
-    const modalAbrirFeichar = () => {
-        setIsModalAbrir(!isModalAbrir);
-    }
-    //LISTAR DADOS API PRODUTO
-
-    const [data, setData] = useState([])
-    useEffect(() => {
-        async function loadProdutos() {
+   const [data, setData] = useState([]) 
+     //MODAL INSERIR
+  const [modalInsertar, setmodalInsertar] = useState(false);
+  //MODAL EDITAR
+  const [modalEditar, setmodalEditar] = useState(false);
+    //PEGA DAOS DO INPUT
+ const [userSelect, setUserSelect] = useState({
+     name_user:"",
+     email_user:"",
+     password_user:"",
+     type_user:""
+  })
+    
+  const handlechange = e=>{
+      const { name, value} =e.target;
+      setUserSelect(prevState=>({
+          ...prevState,
+          [name]:value    
+      }));
+      console.log(userSelect);
+  }
+   //LISTAR DADOS API USUARIO
+/*    useEffect(() => {
+        async function loaduser() {
             const response = await api.get("/api/user");
             setData(response.data)
         }
-        loadProdutos();
+        loaduser();
     }, [])
+*/
+const getUser = async()=>{
+    await api.get("/api/user")
+    .then(response =>{
+        setData(response.data)
+    })
+}
+
+useEffect(() =>{
+    getUser();
+},[])
 
     //CRIAR USUARIOS
-    let history = useHistory()
-    const { register, handleSubmit, formState: { errors } } = useForm()
+  const postUser = async()=>{
+      await api.post("/api/user", userSelect)
+      .then(response=>{
+          setData(data.concat(response.data));
+      })
+  }
 
-    const addUser = data => api.post("/api/user", data)
-        .then(() => {
-            window.alert("Produto Cadastrado")
-            history.push("/")
+      //EDITAR USUARIOS
+      const patchUser = async()=>{
+        await api.patch("/api/user/:user_id" ,userSelect)
+        .then(response=>{
+            var newData= data;
+            newData.map(User=>{
+                if(User.id===userSelect.id){
+                    User.name_user=userSelect.name_user;
+                    User.email_user=userSelect.email_user;
+                    User.password_user=userSelect.password_user;
+                    User.type_user=userSelect.type_user
+                }
+                console.log(newData)
+            });
+            setData(newData);
+            modalAbrirFeicharEditar();
+        }).catch(error=>{
+            console.log(error);
         })
-        .catch(() => {
-            window.alert("Erro ao Cadastrar")
-        })
+    }
 
+  //EDITAR USUARIO
+  const selectUserEdit= (name_user, caso)=>{
+      setUserSelect(name_user);
+      (caso==="Editar")&&modalAbrirFeicharEditar()
+  }
 
-    //FORMULARIO MODAL
+//MODAL INSERIR
+    const modalAbrirFeicharInsertar = () => {
+        setmodalInsertar(!modalInsertar);
+    }
+
+    //MODAL EDITAR
+    const modalAbrirFeicharEditar = () => {
+        setmodalEditar(!modalEditar);
+    }
+
+    //FORMULARIO MODAL CADASTRAR
     const bodyInsertar = (
         <div className={styles.modal}>
             <h3>Adicionar novo usuario</h3>
             <div className="modal__Container">
-                <form onSubmit={handleSubmit(addUser)} >
+
+                <form >
 
                     <div className="form__grup">
-                        <label htmlFor="nomeUsuario">Usuario*</label>
-                        <input type="text" id="nomeUsuario" name="nome_user" required {...register("name_user")}/>
-                        <p className="error-message">{errors.title?.message}</p>
+                        <label htmlFor="name_user">Usuario*</label>
+                        <input type="text" id="nomeUser"  name="name_user" required  onChange={handlechange}/>
+                       
                     </div>
 
                     <div className="form__grup">
-                        <label htmlFor="emailUsuario">Email*</label>
-                        <input type="email" id="emailUsuario" name="email_user" required {...register("email_user")}/>
-                        <p className="error-message">{errors.title?.message}</p>
+                        <label htmlFor="email_user">Email*</label>
+                        <input type="email" id="emailUser"  name="email_user" required onChange={handlechange}/>
+                        
                     </div>
 
                     <div className="form__grup">
-                        <label htmlFor="passwordUsuario">Senha*</label>
-                        <input type="password" id="passwordUsuario" name="password_user" required {...register("password_user")}/>
-                        <p className="error-message">{errors.title?.message}</p>
+                        <label htmlFor="password_user">Senha*</label>
+                        <input type="password" id="passwordUsuario"  name="password_user" required onChange={handlechange}/>
+                        
                     </div>
 
                     <div className="form__grup">
-                        <label htmlFor="tipoUser">Tipo*:</label>
-                        <select id="tipoUser" name="type_User" required {...register("type_user")}>
-                            <option value={1}>Aministrador</option>
-                            <option value={2}>Usuario</option>
+                        <label htmlFor="type_user">Tipo*:</label>
+                        <select id="typeUser" name="type_user" onChange={handlechange} >
+                            <option value={1}>Usuario</option>
+                            <option value={2}>Adm</option>
                         </select>
-                        <p className="error-message">{errors.title?.message}</p>
+                        
                     </div>
 
                     <div className="buttoon_modal">
-                        <button className="button_exit " onClick={() => modalAbrirFeichar(false)} >Cancelar</button>
-                        <button className="button_salvar " >Salvar</button>
+                        <button className="button_exit " onClick={() => modalAbrirFeicharInsertar()} >Cancelar</button>
+                        <button type="submit" className="button_salvar "onClick={() => postUser()}>Salvar</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    )
+
+     //FORMULARIO MODAL EDITAR
+     const bodyEditar = (
+        <div className={styles.modal}>
+            <h3>Editar usuario</h3>
+            <div className="modal__Container">
+
+                <form >
+
+                    <div className="form__grup">
+                        <label htmlFor="name_user">Usuario*</label>
+                        <input type="text" id="nomeUser"  name="name_user" 
+                        required  onChange={handlechange} value={userSelect&&userSelect.name_user}/>
+                       
+                    </div>
+
+                    <div className="form__grup">
+                        <label htmlFor="email_user">Email*</label>
+                        <input type="email" id="emailUser"  name="email_user" 
+                        required onChange={handlechange} value={userSelect&&userSelect.email_user}/>
+                        
+                    </div>
+
+                    <div className="form__grup">
+                        <label htmlFor="password_user">Senha*</label>
+                        <input type="password" id="passwordUsuario"  name="password_user" 
+                        required onChange={handlechange} value={userSelect&&userSelect.password_user}/>
+                        
+                    </div>
+
+                    <div className="form__grup">
+                        <label htmlFor="type_user">Tipo*:</label>
+                        <select id="typeUser" name="type_user" 
+                        onChange={handlechange} value={userSelect&&userSelect.type_user} >
+                            <option value={1}>Usuario</option>
+                            <option value={2}>Adm</option>
+                        </select>
+                        
+                    </div>
+
+                    <div className="buttoon_modal">
+                        <button className="button_exit " onClick={() => modalAbrirFeicharEditar()} >Cancelar</button>
+                        <button type="submit" className="button_salvar" onClick={()=>patchUser()}>Editar</button>
                     </div>
                 </form>
 
@@ -126,13 +236,14 @@ const Users = () => {
     )
 
     return (
+
         <main>
             <div className="__container">
-                <div className="produto__container">
+                <div className="produto__container">                 
 
                     {/*BOTTON NOVO*/}
                     <div className="btn_novo">
-                        <button onClick={() => modalAbrirFeichar(true)} className=" card_button_novo">
+                        <button onClick={() => modalAbrirFeicharInsertar()} className=" card_button_novo">
                             <a className="card_icon"><i className=" fa fa-plus"></i> </a> Novo
                         </button>
                     </div>
@@ -147,12 +258,12 @@ const Users = () => {
                                 {
                                     icon: "edit",
                                     tooltip: "editar Usuario",
-                                    onClick: (event, rowData) => window.confirm("deseja editar o produto:" + rowData.name_user)
+                                    onClick: (event, rowData) =>selectUserEdit(rowData, "Editar")
                                 },
                                 {
                                     icon: "delete",
                                     tooltip: "Deletar Usurio",
-                                    onClick: (event, rowData) => window.confirm("deseja Deleatar o produto:" + rowData.name_user + "?")
+                                    onClick: (event, rowData) => window.confirm("deseja Deleatar o usuario:" + rowData.name_user + "?")
                                 }
                             ]}
                             options={{
@@ -164,11 +275,21 @@ const Users = () => {
 
                             }}
                         />
+                        {/*MODAL POST*/}
                         <div className="modal_ui">
                             <Modal
-                                open={isModalAbrir}
-                                onClose={modalAbrirFeichar}>
+                                open={modalInsertar}
+                                onClose={modalAbrirFeicharInsertar}>
                                 {bodyInsertar}
+                            </Modal>
+                        </div>
+
+                         {/*MODAL EDITAR*/}
+                         <div className="modal_ui">
+                            <Modal
+                                open={modalEditar}
+                                onClose={modalAbrirFeicharEditar}>
+                                {bodyEditar}
                             </Modal>
                         </div>
 
