@@ -56,9 +56,12 @@ const Users = () => {
   const [modalInsertar, setmodalInsertar] = useState(false);
   //MODAL EDITAR
   const [modalEditar, setmodalEditar] = useState(false);
+  //MODAL DELETE
+  const [modalDelete, setmodalDelete] = useState(false);
     //PEGA DAOS DO INPUT
  const [userSelect, setUserSelect] = useState({
-     name_user:"",
+    _id:"",
+    name_user:"",
      email_user:"",
      password_user:"",
      type_user:""
@@ -85,6 +88,8 @@ const getUser = async()=>{
     await api.get("/api/user")
     .then(response =>{
         setData(response.data)
+    }).catch(error=>{
+        console.log(error);
     })
 }
 
@@ -97,22 +102,30 @@ useEffect(() =>{
       await api.post("/api/user", userSelect)
       .then(response=>{
           setData(data.concat(response.data));
-      })
+      }).catch(error=>{
+        console.log(error);
+    })
   }
-
+//EDITAR USUARIO
+  const selectUserEditDelete= (users, caso)=>{
+      setUserSelect(users);
+      (caso==="Editar")?modalAbrirFeicharEditar()
+      :
+      modalAbrirFeicharDelete()
+  }
       //EDITAR USUARIOS
       const patchUser = async()=>{
-        await api.patch("/api/user/:user_id" ,userSelect)
+        await api.patch("/api/user"+ "/" + userSelect._id ,userSelect)
         .then(response=>{
             var newData= data;
-            newData.map(User=>{
-                if(User.id===userSelect.id){
-                    User.name_user=userSelect.name_user;
-                    User.email_user=userSelect.email_user;
-                    User.password_user=userSelect.password_user;
-                    User.type_user=userSelect.type_user
+            newData.map(users=>{
+                if(users._id===userSelect._id){
+                    users.name_user=userSelect.name_user;
+                    users.email_user=userSelect.email_user;
+                    users.password_user=userSelect.password_user;
+                    users.type_user=userSelect.type_user
                 }
-                console.log(newData)
+                console.log(response)
             });
             setData(newData);
             modalAbrirFeicharEditar();
@@ -121,11 +134,17 @@ useEffect(() =>{
         })
     }
 
-  //EDITAR USUARIO
-  const selectUserEdit= (name_user, caso)=>{
-      setUserSelect(name_user);
-      (caso==="Editar")&&modalAbrirFeicharEditar()
-  }
+ //DELETE USUARIOS
+ const deleteUser = async()=>{
+    await api.delete("/api/user"+ "/" + userSelect._id)
+    .then(response=>{
+       setData(data.filter(users=>users._id!==userSelect._id))
+         modalAbrirFeicharDelete();
+    }).catch(error=>{
+        console.log(error);
+    })
+}
+
 
 //MODAL INSERIR
     const modalAbrirFeicharInsertar = () => {
@@ -136,6 +155,12 @@ useEffect(() =>{
     const modalAbrirFeicharEditar = () => {
         setmodalEditar(!modalEditar);
     }
+
+    //MODAL DELETE
+    const modalAbrirFeicharDelete = () => {
+        setmodalDelete(!modalDelete);
+    }
+
 
     //FORMULARIO MODAL CADASTRAR
     const bodyInsertar = (
@@ -234,7 +259,23 @@ useEffect(() =>{
         </div>
 
     )
+   //FORMULARIO MODAL DELETE
+   const bodyDelete = (
+    <div className={styles.modal}>
+        <h3>Excluir usuario</h3>
+        <div className="modal__Container">
+               <div className="buttoon_modal">
+                   <p>
+                       Tem sertesa que deseija exluir o usuario <b>{userSelect && userSelect.name_user}</b> ?
+                   </p>
+                   <button className="button_exit " onClick={()=>modalAbrirFeicharDelete()} >Cancelar</button>
+                   <button type="submit" className="button_salvar"onClick={()=>deleteUser()}>Excluir</button>
+               </div>
+        </div>
 
+    </div>
+
+)
     return (
 
         <main>
@@ -258,12 +299,12 @@ useEffect(() =>{
                                 {
                                     icon: "edit",
                                     tooltip: "editar Usuario",
-                                    onClick: (event, rowData) =>selectUserEdit(rowData, "Editar")
+                                    onClick: (event, rowData) =>selectUserEditDelete(rowData, "Editar")
                                 },
                                 {
                                     icon: "delete",
                                     tooltip: "Deletar Usurio",
-                                    onClick: (event, rowData) => window.confirm("deseja Deleatar o usuario:" + rowData.name_user + "?")
+                                    onClick: (event, rowData) => selectUserEditDelete(rowData, "Excluir")
                                 }
                             ]}
                             options={{
@@ -293,6 +334,14 @@ useEffect(() =>{
                             </Modal>
                         </div>
 
+                             {/*MODAL DELETAR*/}
+                         <div className="modal_ui">
+                            <Modal
+                                open={modalDelete}
+                                onClose={modalAbrirFeicharDelete}>
+                                {bodyDelete}
+                            </Modal>
+                        </div>
                     </div>
 
                 </div>
