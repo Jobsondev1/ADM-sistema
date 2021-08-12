@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
         top: '15%',
         left: '25%'
         
-
     },
     icons: {
         cursor: 'pointer'
@@ -45,6 +44,7 @@ const columns = [
     {
         field: 'type_user',
         title: 'Tipo',
+        lookup:{1:"Usuario", 2:"Admin"},
         width: 150,
         editable: true,
     },
@@ -52,7 +52,7 @@ const columns = [
 const Users = () => {
     const styles = useStyles();
    const [data, setData] = useState([]) 
-     //MODAL INSERIR
+    //MODAL INSERIR
   const [modalInsertar, setmodalInsertar] = useState(false);
   //MODAL EDITAR
   const [modalEditar, setmodalEditar] = useState(false);
@@ -60,11 +60,10 @@ const Users = () => {
   const [modalDelete, setmodalDelete] = useState(false);
     //PEGA DAOS DO INPUT
  const [userSelect, setUserSelect] = useState({
-    _id:"",
-    name_user:"",
+     name_user:"",
      email_user:"",
      password_user:"",
-     type_user:""
+     type_user:"1"
   })
     
   const handlechange = e=>{
@@ -73,17 +72,8 @@ const Users = () => {
           ...prevState,
           [name]:value    
       }));
-      console.log(userSelect);
   }
-   //LISTAR DADOS API USUARIO
-/*    useEffect(() => {
-        async function loaduser() {
-            const response = await api.get("/api/user");
-            setData(response.data)
-        }
-        loaduser();
-    }, [])
-*/
+
 const getUser = async()=>{
     await api.get("/api/user")
     .then(response =>{
@@ -101,18 +91,18 @@ useEffect(() =>{
   const postUser = async()=>{
       await api.post("/api/user", userSelect)
       .then(response=>{
-          setData(data.concat(response.data));
+          setData(data.concat(response.data))
       }).catch(error=>{
         console.log(error);
     })
   }
-//EDITAR USUARIO
-  const selectUserEditDelete= (users, caso)=>{
-      setUserSelect(users);
-      (caso==="Editar")?modalAbrirFeicharEditar()
-      :
-      modalAbrirFeicharDelete()
-  }
+    //DADOS PARA EDITAR DELETE USUARIO
+    const selectUserEditDelete = (users, caso) => {
+        setUserSelect(users);
+        (caso === "Editar") ? modalAbrirFeicharEditar()
+            :
+            modalAbrirFeicharDelete()
+    }
       //EDITAR USUARIOS
       const patchUser = async()=>{
         await api.patch("/api/user"+ "/" + userSelect._id ,userSelect)
@@ -134,19 +124,19 @@ useEffect(() =>{
         })
     }
 
- //DELETE USUARIOS
- const deleteUser = async()=>{
-    await api.delete("/api/user"+ "/" + userSelect._id)
-    .then(response=>{
-       setData(data.filter(users=>users._id!==userSelect._id))
-         modalAbrirFeicharDelete();
-    }).catch(error=>{
-        console.log(error);
-    })
-}
+    //DELETE USUARIOS
+    const deleteUser = async () => {
+        await api.delete("/api/user" + "/" + userSelect._id)
+            .then(response => {
+                setData(data.filter(users => users._id !== userSelect._id))
+                modalAbrirFeicharDelete();
+            }).catch(error => {
+                console.log(error);
+            })
+    }
 
 
-//MODAL INSERIR
+    //MODAL CRIAR
     const modalAbrirFeicharInsertar = () => {
         setmodalInsertar(!modalInsertar);
     }
@@ -192,7 +182,7 @@ useEffect(() =>{
                         <label htmlFor="type_user">Tipo*:</label>
                         <select id="typeUser" name="type_user" onChange={handlechange} >
                             <option value={1}>Usuario</option>
-                            <option value={2}>Adm</option>
+                            <option value={2}>Admin</option>
                         </select>
                         
                     </div>
@@ -282,7 +272,7 @@ useEffect(() =>{
             <div className="__container">
                 <div className="produto__container">                 
 
-                    {/*BOTTON NOVO*/}
+                    {/*BUtTON NOVO*/}
                     <div className="btn_novo">
                         <button onClick={() => modalAbrirFeicharInsertar()} className=" card_button_novo">
                             <a className="card_icon"><i className=" fa fa-plus"></i> </a> Novo
