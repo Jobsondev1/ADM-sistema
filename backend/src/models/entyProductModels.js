@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const ProductEntranceSchema = new mongoose.Schema({
+const entryProductSchema = new mongoose.Schema({
 
     entrance:{
         products:[
@@ -22,4 +22,4 @@ const ProductEntranceSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('entradaProduto',ProductEntranceSchema);
+module.exports = mongoose.model('entradaProduto',entryProductSchema);

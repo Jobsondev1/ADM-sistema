@@ -1,6 +1,6 @@
 const ProductEntrance = require('../models/productEntranceModels')
 
-const ProductEntranceController = {
+const EntryProductControllers = {
 //CRIAR PRODUTO ENTRADA
 async getProductEntrace(req, res){
     
@@ -19,4 +19,4 @@ async getProductEntrace(req, res){
 
 }
 
-module.exports = ProductEntranceController;
+module.exports = EntryProductControllers;

@@ -110,7 +110,7 @@ useEffect(() =>{
   }
   //EDITAR USUARIOS
   const patchProduct = async()=>{
-    await api.patch("/api/Product"+ "/" + productSelect._id ,productSelect)
+    await api.patch("/api/product"+ "/" + productSelect._id ,productSelect)
     .then(response=>{
         var newData= data;
         newData.map(product=>{
@@ -257,8 +257,12 @@ const modalAbrirFeicharDelete = () => {
     return (
       <main>
       <div className="__container">
-          <div className="produto__container">                 
+          <div className="produto__container">  
 
+          <div className="btn_link">
+                <i className="fas fa-angle-left"></i>
+                <a href="/EntryProducts">Voltar</a>
+            </div>
               {/*BUtTON NOVO*/}
               <div className="btn_novo">
                   <button onClick={() => modalAbrirFeicharInsertar()} className=" card_button_novo">

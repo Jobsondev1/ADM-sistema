@@ -18,7 +18,7 @@ const MenuSidebar = () => {
             </div>
             <div className="sidebar__link">
                 <i className="fa fa-box-open"></i>
-                <a href={"/Produto"}>Produto</a>
+                <a href={"/EntryProducts"}>Produto</a>
             </div>
            
             <div className="sidebar__link">

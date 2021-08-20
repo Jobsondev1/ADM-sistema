@@ -1,4 +1,4 @@
-main{
+.main_p{
     background: #e8e9eb;
     grid-area: main;
     overflow-y: auto;
@@ -39,10 +39,20 @@ main{
     position:relative;
 	top:1px;
 }
+.card_icon > i{
+    font-size: 26px;
+    color: #ffffff;
+}
 
-.btn_link{
+.btn_link_entry_pro{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+    
+}
+.btn{
     box-shadow: 0px 10px 14px -7px #276873;
-	background-color:#39d167;
+	background-color:#599bb3;
     border: none;
     border-radius:8px;
 	display:inline-block;
@@ -54,39 +64,68 @@ main{
 	padding:10px 20px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #3d768a;
-    
 }
-.btn_link > a{
+
+.btn_add{
+    box-shadow: 0px 10px 14px -7px #276873;
+	background-color:#60b359;
+    border: none;
+    border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:10px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+}
+
+.btn_add:hover{
+	background-color:#46cc3a; 
+}
+
+.btn > a{
     font-size: 20px;
     color: #ffffff;
     text-decoration:none;
     
 }
-.card_icon > i{
-    font-size: 26px;
-    color: #ffffff;
-}
 
-.title_form_modal{
+.card_produtct{
     display: flex;
-    justify-content: center;  
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    padding: 25px;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+}
+.row{
+    display: flex;
+    flex-direction: row;
 }
 
-.modal__form{
-    justify-content: center;
-    width: 60%;
-    height: 60%;    
-}
-
-form{
+.form_product{
     width: 100%;
-    margin: 15px 0;    
+    height: 100%;
+    display: grid;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.form_container{
+    justify-content: center;
+    width: 40%;
+    height: 40%;  
 }
 
 .form__grup{
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin: 10px;
 }
 
 .form__grup > label{
@@ -95,7 +134,10 @@ form{
     color: #555;
 }
 
-input[type=text], textarea{
+.form__grup .valor{
+ width: 100px;
+}
+input{
     width: 100%;
     padding-left: 10px;
     height: 30px;
@@ -103,60 +145,15 @@ input[type=text], textarea{
     border-radius: 15px;
     border: 1px solid #AAA;
     outline: none;
-    font-size: 15px;
-}
-.form__grup > select{
-    width: 150px;
-    padding-left: 10px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 15px;
-    border: 1px solid rgb(223, 218, 218);
-    outline: none;
     font-size: 20px;
 }
-.form__button__salvar >button{
-    width: 150px;
-    height: 45px;
-    margin: 10px;
-    border: none;
-    background-color: cornflowerblue;
-    color: white;
-    border-radius: 8px;
-    font-size: 20px;
-    cursor: pointer;
-}
-.form__button__salvar >button:hover{
-    background: #127194;
+
+input[type="number"]{
+    width: 80px;
+    
 }
 
-.btn_table_edit{
-    margin-right: 10px;
-}
-.btn_edit{
-    border: none;
-    background-color: #fff;
-    padding: 5px 10px;
-    font-size: 25px;
-    color: #17d336;
-    cursor: pointer;
-}
-.btn_edit:hover{
-    color: #0c7c1f ;
-}
-
-.btn_table_delete{
-    margin-right: 10px;
-}
-.btn_delete{
-    border: none;
-
-    background-color: #fff;
-    padding: 5px 10px;
-    font-size: 25px;
-    color: #f03242;
-    cursor: pointer;
-}
-.btn_delete:hover{
-    color: #b91624 ;
+input[type="date"]{
+    width: 180px;
+    
 }

@@ -34,7 +34,7 @@ const ClientController = {
         }
     },
 
-      // DELETAR PRODUTO
+      // DELETAR CLIENTE
       async deleteClient(req, res){
 
         const {client_id} = req.params

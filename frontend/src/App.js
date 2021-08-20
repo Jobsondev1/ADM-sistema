@@ -6,6 +6,7 @@ import Navbar from './components/navbar/Navbar';
 
 import Client from './pages/client/Client';
 import Main from './pages/main/Main';
+import EntryProducts from "./pages/entryProduts/EntryProducts";
 import Produto from './pages/produto/Produto';
 import Report from './pages/report/Report';
 import Sales from './pages/sales/Sales';
@@ -28,6 +29,7 @@ const App = () => {
        <Switch>
        <Route path ='/' exact component= {Main} />
        <Route path ='/Client' exact component= {Client} /> 
+       <Route path ='/EntryProducts' exact component= {EntryProducts} />
        <Route path ='/Produto' exact component= {Produto} /> 
        <Route path ='/Report' exact component= {Report} /> 
        <Route path ='/Sales' exact component= {Sales} />
